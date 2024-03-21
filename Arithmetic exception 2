@@ -1,0 +1,13 @@
+package plan;
+
+public class LogarithmOfNegative {
+	public static void main(String[] args) {
+        double num = -10;
+        try {
+            double result = Math.log(num);
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: Logarithm of negative number or zero is not allowed.");
+        }
+    }
+}
