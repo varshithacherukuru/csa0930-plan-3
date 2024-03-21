@@ -1,0 +1,9 @@
+public class IncorrectArray {
+    public static void printArray(int[] arr) {
+        try {
+            for (int i = 0; i < arr.length; i++) {
+                int x = arr[i];
+                System.out.println("Accessed element: " + x);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.
