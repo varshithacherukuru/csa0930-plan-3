@@ -1,0 +1,14 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class FileProcessor {
+    public void processFile(File file) throws FileNotFoundException {
+        // Code to process the file
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        File file = new File("example.txt");
+        FileProcessor fp = new FileProcessor();
+        fp.processFile(file);
+    }
+}
