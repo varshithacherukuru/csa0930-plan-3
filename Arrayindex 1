@@ -1,0 +1,14 @@
+package plan;
+
+public class ArrayBounds {
+	public static void main(String[] args) {
+        int[] arr = new int[5];
+        try {
+            int x = arr[5];
+            System.out.println("Accessed element: " + x);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Array index out of bounds.");
+        }
+    }
+
+}
