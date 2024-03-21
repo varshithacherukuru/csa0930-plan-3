@@ -1,0 +1,54 @@
+import java.util.Random;
+
+class SleepingThread1 implements Runnable {
+    @Override
+    public void run() {
+        try {
+            System.out.println("Thread 1 starting...");
+            Thread.sleep(new Random().nextInt(5000) + 5000);
+            System.out.println("Thread 1 finished sleeping.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class SleepingThread2 implements Runnable {
+    @Override
+    public void run() {
+        try {
+            System.out.println("Thread 2 starting...");
+            Thread.sleep(new Random().nextInt(5000));
+            System.out.println("Thread 2 finished sleeping.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+public class SleepingThreads {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new SleepingThread1());
+        Thread t2 = new Thread(new SleepingThread2());
+
+        long startTime = System.currentTimeMillis();
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("Thread 1 slept for " + (endTime - startTime - t1.getPriority()) + " ms.");
+        System.out.println("Thread 2 slept for " + (endTime - startTime - t2.getPriority()) + " ms.");
+
+        System.out.println("The thread with the longer sleeping time is: " +
+            ((endTime - startTime - t1.getPriority()) > (endTime - startTime - t2.getPriority()) ? "Thread 1" : "Thread 2"));
+    }
+}
