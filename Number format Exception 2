@@ -1,0 +1,14 @@
+import java.text.DecimalFormat;
+
+public class DecimalFormatIssues {
+    public static void main(String[] args) {
+        String decimalNumber = "1,234.5";
+        DecimalFormat format = new DecimalFormat("###,###.##");
+        try {
+            Number value = format.parse(decimalNumber);
+            System.out.println("Value: " + value.doubleValue());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: NumberFormatException");
+        }
+    }
+}
