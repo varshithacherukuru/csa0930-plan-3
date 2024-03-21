@@ -1,0 +1,14 @@
+package plan;
+
+public class TanOfNinetyDegrees {
+	 public static void main(String[] args) {
+	        double degrees = 90;
+	        double radians = Math.toRadians(degrees);
+	        try {
+	            double result = Math.tan(radians);
+	            System.out.println("Result: " + result);
+	        } catch (ArithmeticException e) {
+	            System.out.println("Error: Tangent of 90 degrees is undefined.");
+	        }
+	    }
+}
