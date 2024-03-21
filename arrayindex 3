@@ -1,0 +1,11 @@
+public class NestedArray {
+    public static void main(String[] args) {
+        int[][] arr = new int[5][5];
+        try {
+            int x = arr[2][10];
+            System.out.println("Accessed element: " + x);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Array index out of bounds.");
+        }
+    }
+}
