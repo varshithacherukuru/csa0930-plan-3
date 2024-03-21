@@ -1,0 +1,23 @@
+public class InvalidDecimalNumberException extends Exception {
+    public InvalidDecimalNumberException(String message) {
+        super(message);
+    }
+}
+
+public class Example {
+    public static void main(String[] args) {
+        try {
+            validateDecimalNumber("abc");
+        } catch (InvalidDecimalNumberException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void validateDecimalNumber(String decimalNumber) throws InvalidDecimalNumberException {
+        try {
+            Double.parseDouble(decimalNumber);
+        } catch (NumberFormatException e) {
+            throw new InvalidDecimalNumberException("Invalid decimal number format: " + decimalNumber);
+        }
+    }
+}
