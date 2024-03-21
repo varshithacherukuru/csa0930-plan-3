@@ -1,0 +1,18 @@
+public class Example {
+    public enum Animal { DOG, CAT, MOUSE }
+
+    public static void main(String[] args) {
+        Animal animal = Animal.values()[2];
+        try {
+            validateAnimal(animal);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void validateAnimal(Animal animal) {
+        if (animal != Animal.DOG && animal != Animal.CAT && animal != Animal.MOUSE) {
+            throw new IllegalArgumentException("Invalid animal enum constant");
+        }
+    }
+}
