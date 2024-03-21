@@ -1,0 +1,11 @@
+public class ParseNonNumericString {
+    public static void main(String[] args) {
+        String nonNumericString = "Hello";
+        try {
+            int value = Integer.parseInt(nonNumericString);
+            System.out.println("Value: " + value);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: NumberFormatException");
+        }
+    }
+}
