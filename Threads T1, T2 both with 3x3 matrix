@@ -1,0 +1,171 @@
+import java.util.Arrays;
+
+class MatrixThread1 implements Runnable {
+    private int[][] matrix;
+
+    public MatrixThread1(int[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Thread 1 starting...");
+        matrixOperation(matrix);
+        System.out.println("Thread 1 finished.");
+    }
+
+    private void matrixOperation(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                matrix[i][j] *= i + j;
+            }
+        }
+    }
+}
+
+class MatrixThread2 implements Runnable {
+    private int[][] matrix;
+
+    public MatrixThread2(int[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Thread 2 starting...");
+        matrixOperation(matrix);
+        System.out.println("Thread 2 finished.");
+    }
+
+    private void matrixOperation(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                matrix[i][j] /= i + j + 1;
+            }
+        }
+    }
+}
+
+class MatrixThread3 implements Runnable {
+    private int[][] matrix1;
+    private int[][] matrix2;
+
+    public MatrixThread3(int[][] matrix1, int[][] matrix2) {
+        this.matrix1 = matrix1;
+        this.matrix2 = matrix2;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Thread 3 starting...");
+        try{
+            System.out.println("Waiting for T1 and T2 to complete");
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        matrixAddition(matrix1, matrix2);
+
+        System.out.println("Thread 3 finished.");
+    }
+
+    private void matrixAddition(int[][] matrix1, int[][] matrix2) {
+        for (int i = 0; i < matrix1.length; i++) {
+            for (int j = 0; j < matrix1[i].length; j++) {
+                matrix1[i][j] += matrix2[i][j];
+            }
+        }
+
+        System.out.println("Matrix addition result: ");
+        System.out.println(Arrays.deepToString(matrix1));
+    }
+}
+
+class MatrixThread4 implements Runnable {
+
+    @Override
+    public void run() {
+        System.out.println("Thread 4 starting...");
+
+        System.out.println("Waiting for T1 and T2 to complete");
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Thread 4 finished waiting");
+
+        System.out.println("T1 result: ");
+        System.out.println(Arrays.deepToString(T1.matrix));
+
+        System.out.println("T2 result: ");
+        System.out.println(Arrays.deepToString(T2.matrix));
+
+        System.out.println("Thread 4 finished.");
+    }
+}
+
+public class MatrixThreadsExample {
+
+    public static void main(String[] args) {
+        int[][] matrix1 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] matrix2 = {{10, 20, 30}, {40, 50, 60}, {70, 80, 90}};
+
+        Thread T1 = new Thread(new MatrixThread1(matrix{
+            synchronized (MatrixThread3.class) {
+                System.out.println("Thread 3 waiting for T1 and T2 to complete...");
+                MatrixThread3.class.wait();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Thread 3 finished waiting.");
+        matrixAddition(matrix1, matrix2);
+        System.out.println("Thread 3 finished.");
+    }
+
+    private void matrixAddition(int[][] matrix1, int[][] matrix2) {
+        for (int i = 0; i < matrix1.length; i++) {
+            for (int j = 0; j < matrix1[i].length; j++) {
+                matrix1[i][j] += matrix2[i][j];
+            }
+        }
+    }
+}
+
+public class MatrixThreads {
+    public static void main(String[] args) {
+        int[][] matrix1 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] matrix2 = {{9, 8, 7}, {6, 5, 4}, {3, 2, 1}};
+
+        Thread t1 = new Thread(new MatrixThread1(matrix1));
+        Thread t2 = new Thread(new MatrixThread2(matrix2));
+        Thread t3 = new Thread(new MatrixThread3(matrix1, matrix2));
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        synchronized (MatrixThread3.class) {
+            System.out.println("T1 and T2 have completed.");
+            MatrixThread3.class.notifyAll();
+        }
+
+        t3.start();
+
+        try {
+            t3.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Matrix 1 after T1 operation: " + Arrays.deepToString(
